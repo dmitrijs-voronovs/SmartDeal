@@ -22,6 +22,7 @@ contract SmartDeal {
 
 
     constructor(address _agent, address _client, uint _protectionPercent) {
+        require(_protectionPercent > 0 && _protectionPercent < 100, "Protection percent should be in range 1%..99% of the entire contract's value");
         creator = msg.sender;
         agent = payable(_agent);
         client = payable(_client);
@@ -69,10 +70,9 @@ contract SmartDeal {
 // ---------
 
     function getProtectionValue() internal view returns (uint money) {
-        // return protectionPercent * contractValue;
-        return protectionPercent;
+        return contractValue * protectionPercent / 100;
     }
-    
+
     function getCurrentTask() internal view returns (Task memory task) {
         return tasks[taskIdx];
     }
@@ -81,14 +81,19 @@ contract SmartDeal {
         return address(this).balance;
     }
 
+    function getTasks() external view returns (Task[] memory allTasks) {
+        return tasks;
+    }
+
 // ---------
 
     function addTask(string memory title, uint amount) public atState(State.Init) onlyCreator {
         tasks.push(Task(title, amount));
         contractValue += amount;
     }
-    
+
     function startDeal() public atState(State.Init) onlyCreator {
+        require(taskIdx != 0, "Deal should containt at least one task");
         state = State.ProtectionFromClient;
     }
 
