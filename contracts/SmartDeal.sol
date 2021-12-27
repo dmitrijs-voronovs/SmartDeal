@@ -15,7 +15,8 @@ contract SmartDeal {
     uint public taskIdx = 0;
     // value for all the tasks
     uint public contractValue;
-    address private creator;
+    // Can be private, but exposed for sake of displaying in UI
+    address public creator;
     address payable public agent;
     address payable public client;
     uint public protectionPercent;
