@@ -259,19 +259,6 @@ export default ({ drizzle, drizzleState }) => {
 					drizzle={drizzle}
 					drizzleState={drizzleState}
 					contract='SmartDeal'
-					method='sendProtectionMoney'
-					sendArgs={{
-						from: drizzleState.accounts[selectedUserId],
-						gasPrice: 200,
-						gas: 6721975,
-					}}
-					render={customFormRender("Send protection money")}
-				/>
-
-				<ContractForm
-					drizzle={drizzle}
-					drizzleState={drizzleState}
-					contract='SmartDeal'
 					method='startDeal'
 					sendArgs={{
 						from: drizzleState.accounts[selectedUserId],
@@ -279,6 +266,18 @@ export default ({ drizzle, drizzleState }) => {
 						gas: 6721975,
 					}}
 					render={customFormRender("Start deal")}
+				/>
+				<ContractForm
+					drizzle={drizzle}
+					drizzleState={drizzleState}
+					contract='SmartDeal'
+					method='sendProtectionMoney'
+					sendArgs={{
+						from: drizzleState.accounts[selectedUserId],
+						gasPrice: 200,
+						gas: 6721975,
+					}}
+					render={customFormRender("Send protection money")}
 				/>
 				<ContractForm
 					drizzle={drizzle}
