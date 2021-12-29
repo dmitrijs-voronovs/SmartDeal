@@ -1,16 +1,15 @@
-import { DrizzleContext } from "@drizzle/react-plugin";
-import { Drizzle } from "@drizzle/store";
-import { Col, Layout, Row, Space, Spin } from "antd";
+import {DrizzleContext} from "@drizzle/react-plugin";
+import {Drizzle} from "@drizzle/store";
+import {Layout} from "antd";
 // import "./App.css";
 import "antd/dist/antd.css";
 import Title from "antd/lib/typography/Title";
 import React from "react";
-import { Notifications } from "./components/Notifications";
 import drizzleOptions from "./drizzleOptions";
-import MyComponent from "./MyComponent";
+import {ContractPage} from "./components/ContractPage";
+import {LoadingScreen} from "./components/LoadingScreen";
 
 const drizzle = new Drizzle(drizzleOptions);
-console.log(drizzle);
 
 const App = () => {
 	return (
@@ -31,26 +30,11 @@ const App = () => {
 								const { drizzle, drizzleState, initialized } = drizzleContext;
 								if (!initialized) {
 									return (
-										<Row justify='center' style={{ marginTop: "10vh" }}>
-											<Col>
-												<Space align='center'>
-													<Spin size='large' tip='Loading...'></Spin>
-												</Space>
-											</Col>
-										</Row>
+										<LoadingScreen/>
 									);
 								}
 								return (
-									<>
-										<MyComponent
-											drizzle={drizzle}
-											drizzleState={drizzleState}
-										/>
-										<Notifications
-											drizzle={drizzle}
-											drizzleState={drizzleState}
-										/>
-									</>
+									<ContractPage drizzle={drizzle} drizzleState={drizzleState}/>
 								);
 							}}
 						</DrizzleContext.Consumer>

@@ -31,6 +31,7 @@ export const Notifications = ({ drizzle, drizzleState }) => {
 				description: generateDescription(transactionInfo),
 			});
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [drizzleState.transactions]);
 
 	return null;
