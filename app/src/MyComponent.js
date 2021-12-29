@@ -90,19 +90,35 @@ const contractStates = [
 	"Done",
 ];
 
+// TODO: implement events for every state transition ??? or check how to track state change
 export default ({ drizzle, drizzleState }) => {
-	console.log(drizzleState);
-	const [currentTaskKey, setCurrentTaskKey] = useState(null);
+	// TODO: inside contract make default idx -1;
+	const [taskIdKey, setTaskIdKey] = useState(null);
+	const [currentTaskKey, setCurrentTaskKey] = useState([]);
+	const [protectionValueKey, setProtectionValueKey] = useState(null);
+
 	const [selectedUserId, setSelectedUserId] = useState(0);
 
 	useEffect(() => {
+		console.log("______________NEW__________");
 		const contract = drizzle.contracts.SmartDeal;
 		// get and save the key for the variable we are interested in
 		// const dataKey = contract.methods["getTasks"].cacheCall();
-		const dataKey = contract.methods.taskIdx.cacheCall();
-		setCurrentTaskKey(dataKey);
-		// console.log({ dataKey });
+		const taskIdKey = contract.methods.taskIdx.cacheCall();
+		setTaskIdKey(taskIdKey);
+		// setCurrentTaskKey(contract.methods.getCurrentTask.cacheCall());
+		// setProtectionValueKey(contract.methods.getProtectionValue.cacheCall());
 	}, [drizzle]);
+
+	console.log(
+		"_____protectionVal",
+		taskIdKey,
+		drizzle.contracts.SmartDeal,
+		drizzle.contracts.SmartDeal.taskIdx,
+		drizzle.contracts.SmartDeal.taskIdx?.[taskIdKey],
+		drizzle.contracts.SmartDeal.taskIdx?.[taskIdKey]?.value
+		// drizzle.contracts.SmartDeal.taskIdx[taskIdKey]?.value,
+	);
 
 	return (
 		<div className='App'>
@@ -195,8 +211,8 @@ export default ({ drizzle, drizzleState }) => {
 						if (!items.length) return <Empty description='no tasks' />;
 
 						const current =
-							(drizzle.contracts.SmartDeal.methods.taskIdx[currentTaskKey]
-								?.value || 0) - 1;
+							(drizzle.contracts.SmartDeal.methods.taskIdx[taskIdKey]?.value ||
+								0) - 1;
 						// const current = -1;
 						const getTitle = (itemIdx, selectedIdx) => {
 							switch (true) {
@@ -276,6 +292,12 @@ export default ({ drizzle, drizzleState }) => {
 						from: drizzleState.accounts[selectedUserId],
 						gasPrice: 200,
 						gas: 6721975,
+						// TODO: make dynamic
+						value: Number(
+							drizzle.contracts.SmartDeal.methods.getProtectionValue[
+								protectionValueKey
+							]?.value
+						),
 					}}
 					render={customFormRender("Send protection money")}
 				/>
@@ -288,6 +310,11 @@ export default ({ drizzle, drizzleState }) => {
 						from: drizzleState.accounts[selectedUserId],
 						gasPrice: 200,
 						gas: 6721975,
+						// TODO: implement dynamic value obtaining
+						value: Number(
+							drizzle.contracts.SmartDeal.methods.getCurrentTask[currentTaskKey]
+								?.value
+						),
 					}}
 					render={customFormRender("Pay for task")}
 				/>

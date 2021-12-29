@@ -32,14 +32,14 @@ contract SmartDeal {
     }
 
     modifier atState(State _state) {
-        require(state == _state, "Function can not be called at current state.");
+        require(state == _state, "Function can not be called at current state");
         _;
     }
 
     modifier onlyAgent {
         require(
             msg.sender == agent,
-            "Only agent can call this function."
+            "Only agent can call this function"
         );
         _;
     }
@@ -47,7 +47,7 @@ contract SmartDeal {
     modifier onlyClient {
         require(
             msg.sender == client,
-            "Only agent can call this function."
+            "Only agent can call this function"
         );
         _;
     }
@@ -70,11 +70,11 @@ contract SmartDeal {
 
 // ---------
 
-    function getProtectionValue() internal view returns (uint money) {
+    function getProtectionValue() public view returns (uint money) {
         return contractValue * protectionPercent / 100;
     }
 
-    function getCurrentTask() internal view returns (Task memory task) {
+    function getCurrentTask() public view returns (Task memory task) {
         return tasks[taskIdx];
     }
 
@@ -94,25 +94,27 @@ contract SmartDeal {
     }
 
     function startDeal() public atState(State.Init) onlyCreator {
-        require(taskIdx != 0, "Deal should containt at least one task");
+        require(tasks.length != 0, "Deal should containt at least one task");
         state = State.ProtectionFromClient;
     }
 
     // both agent and client
     function sendProtectionMoney() public payable onlyParties {
         require(state == State.ProtectionFromClient
-        || state == State.ProtectionFromAgent);
+        || state == State.ProtectionFromAgent, "Function can not be called at current state");
+        require(msg.value == getProtectionValue(), "Incorrect protection money amount");
 
-        require(msg.value == getProtectionValue());
         if (state == State.ProtectionFromClient) {
+            require(msg.sender == client, "Client should send protection money");
             state = State.ProtectionFromAgent;
         } else {
+            require(msg.sender == agent, "Agent should send protection money");
             state = State.TaskMoney;
         }
     }
 
     function payForTask() public payable atState(State.TaskMoney) onlyClient {
-        require(msg.value == getCurrentTask().amount, "Money should be equal to moany amount for task");
+        require(msg.value == getCurrentTask().amount, "Incorrect amount");
         state = State.TaskInProgress;
     }
 

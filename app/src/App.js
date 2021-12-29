@@ -1,12 +1,13 @@
 import { DrizzleContext } from "@drizzle/react-plugin";
 import { Drizzle } from "@drizzle/store";
-import { Col, ConfigProvider, Layout, Row, Space, Spin } from "antd";
-import React from "react";
-import drizzleOptions from "./drizzleOptions";
-import MyComponent from "./MyComponent";
+import { Col, Layout, Row, Space, Spin } from "antd";
 // import "./App.css";
 import "antd/dist/antd.css";
 import Title from "antd/lib/typography/Title";
+import React from "react";
+import { Notifications } from "./components/Notifications";
+import drizzleOptions from "./drizzleOptions";
+import MyComponent from "./MyComponent";
 
 const drizzle = new Drizzle(drizzleOptions);
 console.log(drizzle);
@@ -40,7 +41,16 @@ const App = () => {
 									);
 								}
 								return (
-									<MyComponent drizzle={drizzle} drizzleState={drizzleState} />
+									<>
+										<MyComponent
+											drizzle={drizzle}
+											drizzleState={drizzleState}
+										/>
+										<Notifications
+											drizzle={drizzle}
+											drizzleState={drizzleState}
+										/>
+									</>
 								);
 							}}
 						</DrizzleContext.Consumer>
