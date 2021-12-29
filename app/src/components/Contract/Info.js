@@ -44,7 +44,7 @@ export function Info(props) {
                     drizzleState={props.drizzleState}
                     contract="SmartDeal"
                     method="contractValue"
-                    render={(arg) => arg}
+                    render={(arg) => `${arg} Wei`}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="Protection percent">
@@ -54,6 +54,14 @@ export function Info(props) {
                     contract="SmartDeal"
                     method="protectionPercent"
                     render={(arg) => `${arg}%`}
+                />
+            </Descriptions.Item><Descriptions.Item label="Protection value">
+                <ContractData
+                    drizzle={props.drizzle}
+                    drizzleState={props.drizzleState}
+                    contract="SmartDeal"
+                    method="getProtectionValue"
+                    render={(arg) => `${arg} Wei`}
                 />
             </Descriptions.Item>
         </Descriptions>
