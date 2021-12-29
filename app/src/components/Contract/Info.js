@@ -1,20 +1,9 @@
 import {Descriptions} from "antd";
 import React from "react";
 import {newContextComponents} from "@drizzle/react-components";
-const { ContractData } = newContextComponents;
+import {getContractState} from "../../utils/ContractStates";
 
-const contractStates = [
-    "Init",
-    "ProtectionFromClient",
-    "ProtectionFromAgent",
-    "TaskMoney",
-    "TaskInProgress",
-    "TaskEvaluation",
-    "ProtectionMoneyBack",
-    "ReviewsAndRatings",
-    "MoneyToAnotherParty",
-    "Done",
-];
+const { ContractData } = newContextComponents;
 
 export function Info(props) {
     return <div>
@@ -35,7 +24,7 @@ export function Info(props) {
                     drizzleState={props.drizzleState}
                     contract="SmartDeal"
                     method="state"
-                    render={(arg) => contractStates[arg]}
+                    render={(stateIdx) => getContractState(stateIdx)}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="Combined task value">

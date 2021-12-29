@@ -47,7 +47,7 @@ contract SmartDeal {
     modifier onlyClient {
         require(
             msg.sender == client,
-            "Only agent can call this function"
+            "Only client can call this function"
         );
         _;
     }
@@ -131,11 +131,11 @@ contract SmartDeal {
 
         emit AcceptedTask(getCurrentTask().title);
 
-        if (taskIdx == tasks.length - 1) {
+        taskIdx += 1;
+        if (taskIdx == tasks.length) {
             state = State.ProtectionMoneyBack;
             returnProtectionMoney();
         } else {
-            taskIdx += 1;
             state = State.TaskInProgress;
         }
     }

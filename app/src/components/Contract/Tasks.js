@@ -1,16 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Empty, Steps} from "antd";
 import {newContextComponents} from "@drizzle/react-components";
 import {useContractData} from "./GetTitle";
+import {contractStateEnum, contractStates, getContractState} from "../../utils/ContractStates";
 
 const {ContractData} = newContextComponents;
 
-const getTitle = (itemIdx, selectedIdx) => {
+const getTitle = (itemIdx, selectedIdx, state) => {
     switch (true) {
         case itemIdx < selectedIdx:
             return "Finished";
         // TODO: add handling for different states
         case itemIdx === selectedIdx:
+            if (getContractState(state) === contractStateEnum.TaskEvaluation) return "Evaluating";
             return "In Progress";
         default:
             return "Waiting";
@@ -18,21 +20,8 @@ const getTitle = (itemIdx, selectedIdx) => {
 };
 
 export function Tasks({drizzle, drizzleState}) {
-
-    // TODO: inside contract make default idx -1;
-    const [taskIdKey, setTaskIdKey] = useState(null);
-
-    useEffect(() => {
-        const contract = drizzle.contracts.SmartDeal;
-        // get and save the key for the variable we are interested in
-        // const dataKey = contract.methods["getTasks"].cacheCall();
-        setTaskIdKey(contract.methods.taskIdx.cacheCall());
-    }, [drizzle]);
-
-    const contractData = drizzleState.contracts.SmartDeal;
-
-    const {taskIdx} = useContractData({drizzle, drizzleState}, 'taskIdx')
-    console.log({taskIdx})
+    const {taskIdx, state } = useContractData({drizzle, drizzleState}, 'taskIdx', "state")
+    console.log({taskIdx, state})
 
     return <div>
         <h2>Tasks</h2>
@@ -44,20 +33,20 @@ export function Tasks({drizzle, drizzleState}) {
             render={(items) => {
                 if (!items.length) return <Empty description='no tasks'/>;
 
-                const current =
-                    (contractData.taskIdx[taskIdKey]?.value ||
-                        0);
+                const current = Number(taskIdx) ||  0;
 
                 return (
                     <Steps direction='vertical' size='small' current={current}>
-                        {items.map(({title, amount}, i) => (
-                            <Steps.Step
-                                key={title}
-                                title={getTitle(i, current)}
-                                subtitle='Me'
-                                description={`${title} - ${amount}`}
-                            />
-                        ))}
+                        {items.map(({title, amount}, i) => {
+                            return (
+                                <Steps.Step
+                                    key={title}
+                                    title={getTitle(i, current, state)}
+                                    subtitle='Me'
+                                    description={`${title} - ${amount}`}
+                                />
+                            );
+                        })}
                     </Steps>
                 );
             }}
