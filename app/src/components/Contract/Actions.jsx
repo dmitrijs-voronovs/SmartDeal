@@ -1,11 +1,11 @@
-import React, {useState} from "react";
-import {useContractData} from "../../utils/useContractData";
-import {Col, Row, Select} from "antd";
-import {userIds} from "../../utils/UserIds";
-import {customFormRender} from "../../utils/CustomFormRender";
-import {newContextComponents} from "@drizzle/react-components";
-import {contractStateEnum,} from "../../utils/ContractStates";
-import {StateDivider} from "./StateDivider";
+import React, { useState } from "react";
+import { useContractData } from "../../utils/useContractData";
+import { Col, Divider, Row, Select } from "antd";
+import { userIds } from "../../utils/UserIds";
+import { customFormRender } from "../../utils/CustomFormRender";
+import { newContextComponents } from "@drizzle/react-components";
+import { contractStateEnum } from "../../utils/ContractStates";
+import { StateDivider } from "./StateDivider";
 
 const { ContractForm } = newContextComponents;
 
@@ -72,6 +72,7 @@ export function Actions({ drizzle, drizzleState }) {
 				labels={["name", "amount"]}
 				render={customFormRender("Add task")}
 			/>
+			<Divider dashed />
 			<ContractForm
 				drizzle={drizzle}
 				drizzleState={drizzleState}
@@ -140,6 +141,7 @@ export function Actions({ drizzle, drizzleState }) {
 				}}
 				render={customFormRender("Send task to revision")}
 			/>
+			<Divider dashed />
 			<ContractForm
 				drizzle={drizzle}
 				drizzleState={drizzleState}
@@ -169,7 +171,7 @@ export function Actions({ drizzle, drizzleState }) {
 				}}
 				render={customFormRender("Accept task")}
 			/>
-
+			<Divider dashed />
 			<ContractForm
 				drizzle={drizzle}
 				drizzleState={drizzleState}
