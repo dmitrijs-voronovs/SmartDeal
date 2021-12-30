@@ -1,7 +1,7 @@
 import React from "react";
 import {Empty, Steps} from "antd";
 import {newContextComponents} from "@drizzle/react-components";
-import {useContractData} from "./GetTitle";
+import {useContractData} from "../../utils/useContractData";
 import {contractStateEnum, contractStates, getContractState} from "../../utils/ContractStates";
 
 const {ContractData} = newContextComponents;
@@ -15,6 +15,7 @@ const getTitle = (itemIdx, selectedIdx, state) => {
         case itemIdx === selectedIdx:
             if (getContractState(state) === contractStateEnum.TaskEvaluation) return "Evaluating";
             if (getContractState(state) === contractStateEnum.TaskInProgress) return "In Progress";
+            return "To do"
         default:
             return "To do";
     }
@@ -44,7 +45,6 @@ export function Tasks({drizzle, drizzleState}) {
                                 <Steps.Step
                                     key={title}
                                     title={getTitle(i, current, state)}
-                                    subtitle='Me'
                                     description={`${title} - ${amount} Wei`}
                                 />
                             );

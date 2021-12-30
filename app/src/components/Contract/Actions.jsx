@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useContractData} from "./GetTitle";
+import {useContractData} from "../../utils/useContractData";
 import {Select, Space} from "antd";
 import {userIds} from "../../utils/UserIds";
 import {customFormRender} from "../../utils/CustomFormRender";
