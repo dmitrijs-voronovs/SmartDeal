@@ -2,7 +2,7 @@ import {Avatar, Divider, Space} from "antd";
 import {UserOutlined} from "@ant-design/icons";
 import {User} from "../User";
 import React from "react";
-import {userIds} from "./Contract";
+import {userIds} from "../../utils/UserIds";
 
 export function Actors(props) {
     return <div>

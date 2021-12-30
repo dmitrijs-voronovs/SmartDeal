@@ -1,16 +1,5 @@
 import {useEffect, useMemo, useState} from "react";
 
-const getInitialState = (args) => args.reduce((acc, arg) => {
-    acc[arg] = null;
-    return acc;
-}, {})
-
-const getAllState = (state, drizzleState, contractName) => {
-    const contractData = drizzleState.contracts[contractName];
-    const resultEntries = Object.entries(state).map(([key, cache]) => [key, contractData[key][cache]?.value])
-    return Object.fromEntries(resultEntries);
-}
-
 /**
  * Hook that queries data from contract
  * @param drizzle
@@ -33,4 +22,15 @@ export const useContractData = ({drizzle, drizzleState, contractName = "SmartDea
     }, [drizzle]);
 
     return useMemo(() => getAllState(state, drizzleState, contractName), [state, drizzleState, contractName])
+}
+
+const getInitialState = (args) => args.reduce((acc, arg) => {
+    acc[arg] = null;
+    return acc;
+}, {})
+
+const getAllState = (state, drizzleState, contractName) => {
+    const contractData = drizzleState.contracts[contractName];
+    const resultEntries = Object.entries(state).map(([key, cache]) => [key, contractData[key][cache]?.value])
+    return Object.fromEntries(resultEntries);
 }

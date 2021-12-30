@@ -5,6 +5,7 @@ import {useContractData} from "./GetTitle";
 import {contractStateEnum, contractStates, getContractState} from "../../utils/ContractStates";
 
 const {ContractData} = newContextComponents;
+const validTaskStates = [contractStateEnum.TaskEvaluation, contractStateEnum.TaskInProgress];
 
 const getTitle = (itemIdx, selectedIdx, state) => {
     switch (true) {
@@ -13,9 +14,9 @@ const getTitle = (itemIdx, selectedIdx, state) => {
         // TODO: add handling for different states
         case itemIdx === selectedIdx:
             if (getContractState(state) === contractStateEnum.TaskEvaluation) return "Evaluating";
-            return "In Progress";
+            if (getContractState(state) === contractStateEnum.TaskInProgress) return "In Progress";
         default:
-            return "Waiting";
+            return "To do";
     }
 };
 
@@ -33,7 +34,8 @@ export function Tasks({drizzle, drizzleState}) {
             render={(items) => {
                 if (!items.length) return <Empty description='no tasks'/>;
 
-                const current = Number(taskIdx) ||  0;
+                const hasStartedImplementingTasks = validTaskStates.includes(getContractState(state))
+                const current = hasStartedImplementingTasks ? Number(taskIdx) : -1;
 
                 return (
                     <Steps direction='vertical' size='small' current={current}>
@@ -43,7 +45,7 @@ export function Tasks({drizzle, drizzleState}) {
                                     key={title}
                                     title={getTitle(i, current, state)}
                                     subtitle='Me'
-                                    description={`${title} - ${amount}`}
+                                    description={`${title} - ${amount} Wei`}
                                 />
                             );
                         })}
