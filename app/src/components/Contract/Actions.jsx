@@ -31,6 +31,8 @@ export function Actions({ drizzle, drizzleState }) {
 	const accounts = drizzleState.accounts;
 	const from = accounts[selectedUserId];
 
+	console.log(protectionValue, Number(protectionValue));
+
 	return (
 		<div>
 			<h2>Actions</h2>
@@ -111,13 +113,14 @@ export function Actions({ drizzle, drizzleState }) {
 					from,
 					gasPrice,
 					gas,
-					value: Number(protectionValue),
+					// value: Number(protectionValue),
+					value: protectionValue,
 				}}
 				render={customFormRender("Send protection money")}
 			/>
 			<StateDivider
 				currentStateIdx={stateIdx}
-				stateNames={[contractStateEnum.TaskMoney]}
+				stateNames={[contractStateEnum.PayForTask]}
 			/>
 
 			<ContractForm
@@ -129,7 +132,7 @@ export function Actions({ drizzle, drizzleState }) {
 					from,
 					gasPrice,
 					gas,
-					value: Number(currentTask?.amount),
+					value: currentTask?.amount,
 				}}
 				render={customFormRender("Pay for task")}
 			/>

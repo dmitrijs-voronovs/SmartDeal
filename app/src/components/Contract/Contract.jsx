@@ -10,16 +10,12 @@ export const Contract = ({ drizzle, drizzleState }) => {
 	return (
 		<div className='App'>
 			<Space direction='vertical' size='middle'>
-				<Row>
+				<Row gutter={16}>
 					<Col span={12}>
-						<Space>
-							<Actors drizzle={drizzle} drizzleState={drizzleState} />
-						</Space>
+						<Actors drizzle={drizzle} drizzleState={drizzleState} />
 					</Col>
 					<Col span={12}>
-						<Space>
-							<Info drizzle={drizzle} drizzleState={drizzleState} />
-						</Space>
+						<Info drizzle={drizzle} drizzleState={drizzleState} />
 					</Col>
 				</Row>
 				<Tasks drizzle={drizzle} drizzleState={drizzleState} />

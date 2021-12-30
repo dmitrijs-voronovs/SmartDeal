@@ -7,7 +7,7 @@ contract SmartDeal {
         string title;
         uint amount;
     }
-    enum State { Init, ProtectionFromClient, ProtectionFromAgent, TaskMoney, TaskInProgress, TaskEvaluation, ProtectionMoneyBack, ReviewsAndRatings, MoneyToAnotherParty, Done }
+    enum State { Init, ProtectionFromClient, ProtectionFromAgent, PayForTask, TaskInProgress, TaskEvaluation, ProtectionMoneyBack, ReviewsAndRatings, MoneyToAnotherParty, Done }
 
     State public state = State.Init;
     Task[] public tasks;
@@ -100,8 +100,11 @@ contract SmartDeal {
 
     // both agent and client
     function sendProtectionMoney() public payable onlyParties {
-        require(state == State.ProtectionFromClient
-        || state == State.ProtectionFromAgent, "Function can not be called at current state");
+        require(
+            state == State.ProtectionFromClient
+            || state == State.ProtectionFromAgent,
+            "Function can not be called at current state"
+        );
         require(msg.value == getProtectionValue(), "Incorrect protection money amount");
 
         if (state == State.ProtectionFromClient) {
@@ -109,11 +112,11 @@ contract SmartDeal {
             state = State.ProtectionFromAgent;
         } else {
             require(msg.sender == agent, "Agent should send protection money");
-            state = State.TaskMoney;
+            state = State.PayForTask;
         }
     }
 
-    function payForTask() public payable atState(State.TaskMoney) onlyClient {
+    function payForTask() public payable atState(State.PayForTask) onlyClient {
         require(msg.value == getCurrentTask().amount, "Incorrect amount");
         state = State.TaskInProgress;
     }
@@ -122,11 +125,29 @@ contract SmartDeal {
         state = State.TaskEvaluation;
     }
 
+     // payable directly or its internal functions?
+    function cancelDeal() public atState(State.TaskInProgress) onlyParties {
+        // TODO: remove state?? it is not needed here?
+        state = State.MoneyToAnotherParty;
+
+        // if client cancels - agent receives money. And vice versa.
+        address payable compensationReceiver = msg.sender == client ? agent : client;
+
+        // pay money back to the client for current task
+        (bool successMoneyForTaskReturn,) = client.call{value: getCurrentTask().amount}("");
+        require(successMoneyForTaskReturn, "Failed to send money");
+
+        // and pay compensation
+        (bool successCompensation,) = compensationReceiver.call{value: getBalance()}("");
+        require(successCompensation, "Failed to send money");
+
+        state = State.ReviewsAndRatings;
+    }
+
     event AcceptedTask(string title);
 
-    // TODO: think about when agent can cancel deal?
-    function acceptTask() public payable atState(State.TaskEvaluation) onlyClient {
-        (bool success,) = agent.call{value: msg.value}("");
+    function acceptTask() public atState(State.TaskEvaluation) onlyClient {
+        (bool success,) = agent.call{value: getCurrentTask().amount}("");
         require(success, "Failed to send money");
 
         emit AcceptedTask(getCurrentTask().title);
@@ -136,7 +157,7 @@ contract SmartDeal {
             state = State.ProtectionMoneyBack;
             returnProtectionMoney();
         } else {
-            state = State.TaskInProgress;
+            state = State.PayForTask;
         }
     }
 
@@ -156,24 +177,6 @@ contract SmartDeal {
 
         (bool successReturnToClient,) = client.call{value: getProtectionValue()}("");
         require(successReturnToClient, "Failed to send money");
-        state = State.ReviewsAndRatings;
-    }
-
-    // payable directly or its internal functions?
-    function cancelDeal() public payable atState(State.TaskInProgress) onlyParties {
-        // TODO: remove state?? it is not needed here?
-        state = State.MoneyToAnotherParty;
-
-        address payable compensationReceiver = msg.sender == client ? client : agent;
-
-        // pay money back to the client for current task
-        (bool successMoneyForTaskReturn,) = client.call{value: getCurrentTask().amount}("");
-        require(successMoneyForTaskReturn, "Failed to send money");
-
-        // and pay compensation
-        (bool successCompensation,) = compensationReceiver.call{value: getBalance()}("");
-        require(successCompensation, "Failed to send money");
-
         state = State.ReviewsAndRatings;
     }
 
