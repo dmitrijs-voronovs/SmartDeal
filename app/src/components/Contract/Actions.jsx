@@ -34,27 +34,36 @@ export function Actions({ drizzle, drizzleState }) {
 	return (
 		<div>
 			<h2>Actions</h2>
-			<Row style={{ padding: "1rem 0" }}>
-				<Col span={6} style={{ textAlign: "right", paddingRight: ".5rem" }}>
-					Select a user:
-				</Col>
-				<Col span={14}>
-					<Select
-						onChange={(val) => {
-							setSelectedUserId(val);
-						}}
-						options={[
-							{ label: "Creator", value: userIds.creator },
-							{
-								label: "Agent",
-								value: userIds.agent,
-							},
-							{ label: "Client", value: userIds.client },
-						]}
-						defaultValue={userIds.creator}
-					/>
-				</Col>
-			</Row>
+			<div
+				style={{
+					position: "sticky",
+					top: 0,
+					background: "rgba(240, 242, 245, .8)",
+					zIndex: 99,
+				}}
+			>
+				<Row style={{ padding: "1rem 0" }}>
+					<Col span={6} style={{ textAlign: "right", paddingRight: ".5rem" }}>
+						Select a user:
+					</Col>
+					<Col span={14}>
+						<Select
+							onChange={(val) => {
+								setSelectedUserId(val);
+							}}
+							options={[
+								{ label: "Creator", value: userIds.creator },
+								{
+									label: "Agent",
+									value: userIds.agent,
+								},
+								{ label: "Client", value: userIds.client },
+							]}
+							defaultValue={userIds.creator}
+						/>
+					</Col>
+				</Row>
+			</div>
 			<StateDivider
 				currentStateIdx={stateIdx}
 				stateNames={[contractStateEnum.Init]}
