@@ -4,7 +4,8 @@ import {useEffect, useMemo, useState} from "react";
  * Hook that queries data from contract
  * @param drizzle
  * @param drizzleState
- * @param args contract fields
+ * @param contractName
+ * @param args
  * @returns {*}
  */
 export const useContractData = ({drizzle, drizzleState, contractName = "SmartDeal"}, ...args) => {
