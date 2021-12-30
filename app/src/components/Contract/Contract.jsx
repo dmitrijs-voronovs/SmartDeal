@@ -5,12 +5,11 @@ import { Actors } from "./Actors";
 import { Actions } from "./Actions";
 import { Col, Row, Space } from "antd";
 
-// TODO: implement events for every state transition ??? or check how to track state change
 export const Contract = ({ drizzle, drizzleState }) => {
 	return (
 		<div className='App'>
 			<Space direction='vertical' size='middle'>
-				<Row gutter={16}>
+				<Row gutter={32}>
 					<Col span={12}>
 						<Actors drizzle={drizzle} drizzleState={drizzleState} />
 					</Col>

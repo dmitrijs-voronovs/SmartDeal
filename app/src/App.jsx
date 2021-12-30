@@ -1,13 +1,13 @@
-import {DrizzleContext} from "@drizzle/react-plugin";
-import {Drizzle} from "@drizzle/store";
-import {Layout} from "antd";
+import { DrizzleContext } from "@drizzle/react-plugin";
+import { Drizzle } from "@drizzle/store";
+import { Layout } from "antd";
 // import "./App.css";
 import "antd/dist/antd.css";
 import Title from "antd/lib/typography/Title";
 import React from "react";
 import drizzleOptions from "./drizzleOptions";
-import {ContractPage} from "./components/ContractPage";
-import {LoadingScreen} from "./components/LoadingScreen";
+import { ContractPage } from "./components/ContractPage";
+import { LoadingScreen } from "./components/LoadingScreen";
 
 const drizzle = new Drizzle(drizzleOptions);
 
@@ -29,12 +29,10 @@ const App = () => {
 							{(drizzleContext) => {
 								const { drizzle, drizzleState, initialized } = drizzleContext;
 								if (!initialized) {
-									return (
-										<LoadingScreen/>
-									);
+									return <LoadingScreen />;
 								}
 								return (
-									<ContractPage drizzle={drizzle} drizzleState={drizzleState}/>
+									<ContractPage drizzle={drizzle} drizzleState={drizzleState} />
 								);
 							}}
 						</DrizzleContext.Consumer>

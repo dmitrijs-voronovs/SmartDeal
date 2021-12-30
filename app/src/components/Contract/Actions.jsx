@@ -31,16 +31,14 @@ export function Actions({ drizzle, drizzleState }) {
 	const accounts = drizzleState.accounts;
 	const from = accounts[selectedUserId];
 
-	console.log(protectionValue, Number(protectionValue));
-
 	return (
-		<div>
+		<div style={{ background: "white", padding: "1rem" }}>
 			<h2>Actions</h2>
 			<div
 				style={{
 					position: "sticky",
 					top: 0,
-					background: "rgba(240, 242, 245, .8)",
+					background: "rgba(255,255,255,.9)",
 					zIndex: 99,
 				}}
 			>
@@ -214,7 +212,7 @@ export function Actions({ drizzle, drizzleState }) {
 					gasPrice,
 					gas,
 				}}
-				render={customFormRender("Write review")}
+				render={customFormRender("Write review", stateIdx)}
 			/>
 			<StateDivider
 				currentStateIdx={stateIdx}

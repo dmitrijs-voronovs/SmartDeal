@@ -7,9 +7,10 @@ import { userIds } from "../../utils/UserIds";
 export function Actors(props) {
 	return (
 		<div>
-			{/* <h2>Actors</h2> */}
 			<Card title='Actors'>
-				<Divider orientation='left'>Authorized consultant</Divider>
+				<Divider orientation='left' style={{ marginTop: 0 }}>
+					Authorized consultant
+				</Divider>
 				<Space align='center'>
 					<Avatar
 						style={{ backgroundColor: "#87d068" }}

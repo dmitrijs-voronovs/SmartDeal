@@ -45,10 +45,9 @@ export function Tasks({ drizzle, drizzleState }) {
 		"taskIdx",
 		"state"
 	);
-	console.log({ taskIdx, state });
 
 	return (
-		<div>
+		<div style={{ padding: "1rem" }}>
 			<h2>Tasks</h2>
 			<ContractData
 				drizzle={drizzle}
