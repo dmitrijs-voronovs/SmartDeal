@@ -12,6 +12,8 @@ const { ContractForm } = newContextComponents;
 const gasPrice = 2000000000;
 const gas = 6721975;
 
+export const amountField = "amount (ETH)";
+
 export function Actions({ drizzle, drizzleState }) {
 	const [selectedUserId, setSelectedUserId] = useState(0);
 
@@ -78,8 +80,7 @@ export function Actions({ drizzle, drizzleState }) {
 					gasPrice,
 					gas,
 				}}
-				labels={["name", "amount"]}
-				render={customFormRender("Add task")}
+				render={customFormRender("Add task", {drizzle, labels: ["name", amountField]})}
 			/>
 			<Divider dashed />
 			<ContractForm
@@ -211,7 +212,7 @@ export function Actions({ drizzle, drizzleState }) {
 					gasPrice,
 					gas,
 				}}
-				render={customFormRender("Write review", stateIdx)}
+				render={customFormRender("Write review", {stateIdx})}
 			/>
 			<StateDivider
 				currentStateIdx={stateIdx}

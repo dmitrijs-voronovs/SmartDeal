@@ -7,6 +7,7 @@ import {
 	getContractState,
 	getStateIdx,
 } from "../../utils/ContractStates";
+import {getEthValue} from "../../utils/getEthValue";
 
 const { ContractData } = newContextComponents;
 
@@ -92,7 +93,7 @@ export function Tasks({ drizzle, drizzleState }) {
 										key={title}
 										title={stepTitle}
 										{...cancelledStateProps}
-										description={`${title} - ${amount} Wei`}
+										description={`${title} - ${getEthValue(drizzle, amount)}`}
 									/>
 								);
 							})}
