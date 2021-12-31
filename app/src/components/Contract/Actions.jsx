@@ -199,7 +199,6 @@ export function Actions({ drizzle, drizzleState }) {
 				stateNames={[
 					contractStateEnum.ReviewsAndRatings,
 					contractStateEnum.ProtectionMoneyBack,
-					contractStateEnum.MoneyToAnotherParty,
 				]}
 			/>
 			<ContractForm

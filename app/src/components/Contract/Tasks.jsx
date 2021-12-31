@@ -4,7 +4,6 @@ import { newContextComponents } from "@drizzle/react-components";
 import { useContractData } from "../../utils/useContractData";
 import {
 	contractStateEnum,
-	contractStates,
 	getContractState,
 	getStateIdx,
 } from "../../utils/ContractStates";
@@ -12,11 +11,9 @@ import {
 const { ContractData } = newContextComponents;
 
 const getIsCancelled = ({ itemIdx, selectedIdx, total }, state) =>
-	[
-		contractStateEnum.ReviewsAndRatings,
-		contractStateEnum.MoneyToAnotherParty,
-		contractStateEnum.Done,
-	].includes(getContractState(state)) &&
+	[contractStateEnum.ReviewsAndRatings, contractStateEnum.Done].includes(
+		getContractState(state)
+	) &&
 	selectedIdx !== total &&
 	itemIdx === selectedIdx;
 
@@ -38,6 +35,16 @@ const getTitle = ({ itemIdx, selectedIdx, total }, state) => {
 	}
 };
 
+function getCurrentStepIdx(taskIdx, state) {
+	const payForTaskStateIdx = getStateIdx(state.PayForTask);
+	const hasStartedImplementingTasks =
+		state > payForTaskStateIdx ||
+		(state >= payForTaskStateIdx && taskIdx > 0);
+	return hasStartedImplementingTasks
+		? Number(taskIdx)
+		: -1;
+}
+
 export function Tasks({ drizzle, drizzleState }) {
 	console.log({ drizzle, drizzleState });
 	const { taskIdx, state } = useContractData(
@@ -56,29 +63,35 @@ export function Tasks({ drizzle, drizzleState }) {
 				method='getTasks'
 				render={(items) => {
 					if (!items.length) return <Empty description='no tasks' />;
-
-					const payForTaskStateIdx = getStateIdx(state.PayForTask);
-					const hasStartedImplementingTasks =
-						state > payForTaskStateIdx ||
-						(state >= payForTaskStateIdx && taskIdx > 0);
-					const current = hasStartedImplementingTasks ? Number(taskIdx) : -1;
+					const currentStepIdx = getCurrentStepIdx(taskIdx, state);
 
 					return (
-						<Steps direction='vertical' size='small' current={current}>
+						<Steps direction='vertical' size='small' current={currentStepIdx}>
 							{items.map(({ title, amount }, i) => {
+								const stepTitle = getTitle(
+									{
+										itemIdx: i,
+										selectedIdx: currentStepIdx,
+										total: items.length,
+									},
+									state
+								);
+								const cancelledStateProps = getIsCancelled(
+									{
+										itemIdx: i,
+										selectedIdx: currentStepIdx,
+										total: items.length,
+									},
+									state
+								)
+									? { status: "error" }
+									: {};
+
 								return (
 									<Steps.Step
 										key={title}
-										title={getTitle(
-											{ itemIdx: i, selectedIdx: current, total: items.length },
-											state
-										)}
-										{...(getIsCancelled(
-											{ itemIdx: i, selectedIdx: current, total: items.length },
-											state
-										)
-											? { status: "error" }
-											: {})}
+										title={stepTitle}
+										{...cancelledStateProps}
 										description={`${title} - ${amount} Wei`}
 									/>
 								);

@@ -7,7 +7,6 @@ export const contractStateEnum = {
 	TaskEvaluation: "TaskEvaluation",
 	ProtectionMoneyBack: "ProtectionMoneyBack",
 	ReviewsAndRatings: "ReviewsAndRatings",
-	MoneyToAnotherParty: "MoneyToAnotherParty",
 	Done: "Done",
 };
 
@@ -20,7 +19,6 @@ const contractStates = [
 	contractStateEnum.TaskEvaluation,
 	contractStateEnum.ProtectionMoneyBack,
 	contractStateEnum.ReviewsAndRatings,
-	contractStateEnum.MoneyToAnotherParty,
 	contractStateEnum.Done,
 ];
 
