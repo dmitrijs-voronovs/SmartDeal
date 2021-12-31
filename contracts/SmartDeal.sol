@@ -7,27 +7,34 @@ contract SmartDeal {
         string title;
         uint amount;
     }
-    enum State { Init, ProtectionFromClient, ProtectionFromAgent, PayForTask, TaskInProgress, TaskEvaluation, ProtectionMoneyBack, ReviewsAndRatings, MoneyToAnotherParty, Done }
+    enum State { Init, ProtectionFromClient, ProtectionFromAgent, PayForTask, TaskInProgress, TaskEvaluation, ProtectionMoneyBack, ReviewsAndRatings, Done }
 
     State public state = State.Init;
     Task[] public tasks;
-    // TODO: maybe int?
     uint public taskIdx = 0;
     // value for all the tasks
     uint public contractValue;
-    // Can be private, but exposed for sake of displaying in UI
+    // Can be private, but exposed for sake of displaying it in UI
     address public creator;
     address payable public agent;
     address payable public client;
     uint public protectionPercent;
 
+// --------- events
+
+    event DealStarted();
+    event DealCancelled(address initiator);
+    event TaskAccepted(string title);
+    event TaskDeclined(string title, string revisionMessage);
+    event RatingLeft(uint rating, string review);
+
+// --------- Constructor + modifiers
 
     constructor(address _agent, address _client, uint _protectionPercent) {
         require(_protectionPercent > 0 && _protectionPercent < 100, "Protection percent should be in range 1%..99% of the entire contract's value");
         creator = msg.sender;
         agent = payable(_agent);
         client = payable(_client);
-        // TODO: fix percent
         protectionPercent = _protectionPercent;
     }
 
@@ -68,7 +75,7 @@ contract SmartDeal {
         _;
     }
 
-// ---------
+// --------- utils
 
     function getProtectionValue() public view returns (uint money) {
         return contractValue * protectionPercent / 100;
@@ -86,15 +93,18 @@ contract SmartDeal {
         return tasks;
     }
 
-// ---------
+// --------- logic
 
     function addTask(string memory title, uint amount) public atState(State.Init) onlyCreator {
         tasks.push(Task(title, amount));
         contractValue += amount;
     }
 
+
     function startDeal() public atState(State.Init) onlyCreator {
         require(tasks.length != 0, "Deal should containt at least one task");
+        emit DealStarted();
+
         state = State.ProtectionFromClient;
     }
 
@@ -125,13 +135,10 @@ contract SmartDeal {
         state = State.TaskEvaluation;
     }
 
-     // payable directly or its internal functions?
     function cancelDeal() public atState(State.TaskInProgress) onlyParties {
-        // TODO: remove state?? it is not needed here?
-        state = State.MoneyToAnotherParty;
-
         // if client cancels - agent receives money. And vice versa.
         address payable compensationReceiver = msg.sender == client ? agent : client;
+        emit DealCancelled(msg.sender);
 
         // pay money back to the client for current task
         (bool successMoneyForTaskReturn,) = client.call{value: getCurrentTask().amount}("");
@@ -144,13 +151,11 @@ contract SmartDeal {
         state = State.ReviewsAndRatings;
     }
 
-    event AcceptedTask(string title);
-
     function acceptTask() public atState(State.TaskEvaluation) onlyClient {
         (bool success,) = agent.call{value: getCurrentTask().amount}("");
         require(success, "Failed to send money");
 
-        emit AcceptedTask(getCurrentTask().title);
+        emit TaskAccepted(getCurrentTask().title);
 
         taskIdx += 1;
         if (taskIdx == tasks.length) {
@@ -161,10 +166,8 @@ contract SmartDeal {
         }
     }
 
-    event DeclinedTask(string title, string revisionMessage);
-
     function declineTask(string memory revisionMessage) public atState(State.TaskEvaluation) onlyClient {
-        emit DeclinedTask(getCurrentTask().title, revisionMessage);
+        emit TaskDeclined(getCurrentTask().title, revisionMessage);
 
         state = State.TaskInProgress;
     }
@@ -180,33 +183,9 @@ contract SmartDeal {
         state = State.ReviewsAndRatings;
     }
 
-    event LeftRating(uint rating, string review);
-
     function writeReview(uint rating, string memory review) public atState(State.ReviewsAndRatings) onlyClient {
-        emit LeftRating(rating, review);
+        require(rating >= 1 && rating <= 5, "Rating should range from 1 to 5 inclusive");
+        emit RatingLeft(rating, review);
         state = State.Done;
     }
-
-        /*
-    Which function is called, fallback() or receive()?
-
-           send Ether
-               |
-         msg.data is empty?
-              / \
-            yes  no
-            /     \
-receive() exists?  fallback()
-         /   \
-        yes   no
-        /      \
-    receive()   fallback()
-    */
-
-    // Function to receive Ether. msg.data must be empty
-    receive() external payable {}
-
-    // Fallback function is called when msg.data is not empty
-    fallback() external payable {}
-
 }
