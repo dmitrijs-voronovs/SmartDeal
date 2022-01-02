@@ -90,6 +90,8 @@ contract SmartDeal {
         return address(this).balance;
     }
 
+    // As drizzle did not work with public `tasks` field,
+    // a separate getter function was created
     function getTasks() external view returns (Task[] memory allTasks) {
         return tasks;
     }
