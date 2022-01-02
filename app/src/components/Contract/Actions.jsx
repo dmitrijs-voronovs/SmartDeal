@@ -75,6 +75,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='addTask'
+				key='addTask'
 				sendArgs={{
 					from,
 					gasPrice,
@@ -88,6 +89,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='startDeal'
+				key='startDeal'
 				sendArgs={{
 					from,
 					gasPrice,
@@ -108,6 +110,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='sendProtectionMoney'
+				key='sendProtectionMoney'
 				sendArgs={{
 					from,
 					gasPrice,
@@ -127,6 +130,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='payForTask'
+				key='payForTask'
 				sendArgs={{
 					from,
 					gasPrice,
@@ -145,6 +149,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='sendTaskToRevision'
+				key='sendTaskToRevision'
 				sendArgs={{
 					from,
 					gasPrice,
@@ -158,6 +163,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='cancelDeal'
+				key='cancelDeal'
 				sendArgs={{
 					from,
 					gasPrice,
@@ -175,6 +181,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='acceptTask'
+				key='acceptTask'
 				sendArgs={{
 					from,
 					gasPrice,
@@ -188,6 +195,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='declineTask'
+				key='declineTask'
 				sendArgs={{
 					from,
 					gasPrice,
@@ -207,6 +215,7 @@ export function Actions({ drizzle, drizzleState }) {
 				drizzleState={drizzleState}
 				contract='SmartDeal'
 				method='writeReview'
+				key='writeReview'
 				sendArgs={{
 					from,
 					gasPrice,

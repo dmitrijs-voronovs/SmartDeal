@@ -27,6 +27,7 @@ contract SmartDeal {
     event TaskAccepted(string title);
     event TaskDeclined(string title, string revisionMessage);
     event RatingLeft(uint rating, string review);
+    event DealCompleted();
 
 // --------- Constructor + modifiers
 
@@ -102,7 +103,7 @@ contract SmartDeal {
 
 
     function startDeal() public atState(State.Init) onlyCreator {
-        require(tasks.length != 0, "Deal should containt at least one task");
+        require(tasks.length != 0, "Deal should contain at least one task");
         emit DealStarted();
 
         state = State.ProtectionFromClient;
@@ -187,5 +188,6 @@ contract SmartDeal {
         require(rating >= 1 && rating <= 5, "Rating should range from 1 to 5 inclusive");
         emit RatingLeft(rating, review);
         state = State.Done;
+        emit DealCompleted();
     }
 }

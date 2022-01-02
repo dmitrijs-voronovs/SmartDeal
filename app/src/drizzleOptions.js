@@ -8,9 +8,15 @@ const options = {
 		customProvider: new Web3("ws://localhost:7545"),
 	},
 	contracts: [SmartDeal],
-	// events: {
-	// 	SimpleStorage: ["StorageSet"],
-	// },
+	events: {
+		SmartDeal: [
+			"DealStarted",
+			"DealCancelled",
+			"TaskAccepted",
+			"TaskDeclined",
+			"RatingLeft",
+		],
+	},
 };
 
 export default options;
