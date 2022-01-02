@@ -8,8 +8,6 @@ module.exports = function (deployer, network, accounts) {
 	 *  200 - protection money
 	 */
 	deployer.deploy(SmartDeal, accounts[1], accounts[2], 30, {
-		// overwrite: false,
 		from: accounts[0],
-		// gas: 3000000,
 	});
 };
