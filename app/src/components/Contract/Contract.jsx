@@ -4,6 +4,7 @@ import { Tasks } from "./Tasks";
 import { Actors } from "./Actors";
 import { Actions } from "./Actions";
 import { Col, Row, Space } from "antd";
+import {Events} from "./Events";
 
 export const Contract = ({ drizzle, drizzleState }) => {
 	return (
@@ -19,6 +20,7 @@ export const Contract = ({ drizzle, drizzleState }) => {
 				</Row>
 				<Tasks drizzle={drizzle} drizzleState={drizzleState} />
 				<Actions drizzle={drizzle} drizzleState={drizzleState} />
+				<Events drizzle={drizzle} drizzleState={drizzleState} />
 			</Space>
 		</div>
 	);

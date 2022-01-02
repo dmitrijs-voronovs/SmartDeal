@@ -1,16 +1,15 @@
+import { newContextComponents } from "@drizzle/react-components";
 import { Card, Descriptions } from "antd";
 import React from "react";
-import { newContextComponents } from "@drizzle/react-components";
 import { getContractState } from "../../utils/ContractStates";
-import {getEthValue} from "../../utils/getEthValue";
+import { getEthValue } from "../../utils/getEthValue";
 
 const { ContractData } = newContextComponents;
 
 export function Info({ drizzle, drizzleState }) {
 	return (
 		<div>
-			{/* <h2>Contract information</h2> */}
-			<Card title='Contract Information'>
+			<Card title='Contract Information' style={{wordBreak:  "break-all"}}>
 				<Descriptions column={1}>
 					<Descriptions.Item label='Balance'>
 						<ContractData
