@@ -7,7 +7,7 @@ import {
 	getContractState,
 	getStateIdx,
 } from "../../utils/ContractStates";
-import {getEthValue} from "../../utils/getEthValue";
+import { getEthValue } from "../../utils/getEthValue";
 
 const { ContractData } = newContextComponents;
 
@@ -39,15 +39,11 @@ const getTitle = ({ itemIdx, selectedIdx, total }, state) => {
 function getCurrentStepIdx(taskIdx, state) {
 	const payForTaskStateIdx = getStateIdx(state.PayForTask);
 	const hasStartedImplementingTasks =
-		state > payForTaskStateIdx ||
-		(state >= payForTaskStateIdx && taskIdx > 0);
-	return hasStartedImplementingTasks
-		? Number(taskIdx)
-		: -1;
+		state > payForTaskStateIdx || (state >= payForTaskStateIdx && taskIdx > 0);
+	return hasStartedImplementingTasks ? Number(taskIdx) : -1;
 }
 
 export function Tasks({ drizzle, drizzleState }) {
-	console.log({ drizzle, drizzleState });
 	const { taskIdx, state } = useContractData(
 		{ drizzle, drizzleState },
 		"taskIdx",

@@ -1,7 +1,6 @@
 const SmartDeal = artifacts.require("SmartDeal");
 
 module.exports = function (deployer, network, accounts) {
-	console.log(accounts);
 	/** Deploys the Smart Deal, where:
 	 *  accounts[0] - creator (authorized consultant)
 	 *  accounts[1] - agent
