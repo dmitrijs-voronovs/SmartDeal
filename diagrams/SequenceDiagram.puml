@@ -1,0 +1,78 @@
+@startuml
+
+Title "Smart Deal" lifecycle
+
+actor "Authorized\nconsultant" as AC
+actor Client as C
+participant "Smart Deal" as S
+actor Agent as A
+
+AC -> S: createContract \n(agent, client, protectionPercent)
+
+== Init ==
+S -> S: set(agent, client, protectionPercent)
+loop N tasks
+    AC -> S: createTask(name, value)
+    S -> S: addTask(name, value)
+end
+
+AC -> S: startDeal()
+S -> S: emit: DealStarted
+
+== ProtectionFromClient ==
+C -> S: sendProtectionMoney()
+
+== ProtectionFromAgent ==
+A -> S: sendProtectionMoney()
+
+loop all tasks
+    == PayForTask ==
+    C -> S: payForTask()
+
+    == TaskInProgress ==
+    A -> S: sendTaskToRevision()
+
+    == TaskEvaluation ==
+    alt task is completed properly
+        C -> S: acceptTask()
+        S -> S: emit: TaskAccepted(taskTitle)
+
+    else ask for revision
+        C -> S: declineTask()
+        S -> S: emit: TaskDeclined(revisionMessage)
+
+    else cancel deal
+        alt client cancels deal
+            C -> S: cancelDeal()
+            S -> S: emit: DealCancelled(client)
+        else agent cancels deal
+            A -> S: cancelDeal()
+            S -> S: emit: DealCancelled(agent)
+        end
+    end
+end
+
+alt all tasks completed
+    == ProtectionMoneyBack ==
+    S --> A: returnProtectionMoney()
+    S --> C: returnProtectionMoney()
+
+else deal was cancelled
+    S --> C: returnMoneyForLastPaidTask()
+
+    alt client cancelled
+        S --> A: payCompensation()
+
+    else agent cancelled
+        S --> C: payCompensation()
+    end
+end
+
+== ReviewsAndRatings ==
+C -> S: writeReview(rating, review)
+S -> S: emit: RatingLeft(rating, review)
+
+== Done ==
+S -> S: emit: DealCompleted
+
+@enduml
