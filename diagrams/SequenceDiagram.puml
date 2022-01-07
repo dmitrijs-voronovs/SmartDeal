@@ -24,66 +24,63 @@ S -> S: **setState(ProtectionFromClient)**
 S -> S--: emit: DealStarted
 
 activate C
-C -> S: sendProtectionMoney()
+C -> S++: sendProtectionMoney()
 
-S -> S: **setState(ProtectionFromAgent)**
+S -> S--: **setState(ProtectionFromAgent)**
 activate A
-A -> S: sendProtectionMoney()
+A -> S++: sendProtectionMoney()
 
 loop all tasks
-    S -> S: **setState(PayForTask)**
-    C -> S: payForTask()
+    S -> S--: **setState(PayForTask)**
+    C -> S++: payForTask()
 
-    ' introduce another loop????
-    S -> S: **setState(TaskInProgress)**
-    A -> S: sendTaskToRevision()
+    loop task iterations
+        S -> S--: **setState(TaskInProgress)**
 
-    S -> S: **setState(TaskEvaluation)**
-    alt task is completed properly
-        C -> S++: acceptTask()
-        S -> S--: emit: TaskAccepted(taskTitle)
+        break a party cancels the deal
+            S --> C: returnMoneyForLastPaidTask()
 
-    else bad execution, ask for a revision
-        C -> S++: declineTask()
-        S -> S--: emit: TaskDeclined(revisionMessage)
-        note left
-        go back to TaskInProgress state
-        end note
-
-    else cancel deal
-        break client cancels deal
-            C -> S++: cancelDeal()
-            S -> S--: emit: DealCancelled(client)
-        else agent cancels deal
-            A -> S++: cancelDeal()
-            S -> S--: emit: DealCancelled(agent)
+            alt client cancels the deal
+                C -> S++: cancelDeal()
+                S -> S--: emit: DealCancelled(client)
+                S --> A: payCompensation()
+            else agent cancels the deal
+                A -> S++: cancelDeal()
+                S -> S--: emit: DealCancelled(agent)
+                S --> C: payCompensation()
+            end
         end
+
+        A -> S++: sendTaskToRevision()
+
+        S -> S--: **setState(TaskEvaluation)**
+
+        break client accepts a task
+            C -> S++: acceptTask()
+            S -> S--: emit: TaskAccepted(taskTitle)
+        end
+
+        C -> S++: declineTask(revisionMessage)
+        S -> S--: emit: TaskDeclined(revisionMessage)
+    end
+
+    break a party cancelled the deal
     end
 end
 
-alt all tasks completed
-    S -> S: **setState(ProtectionMoneyBack)**
+alt all tasks were completed
+    S -> S++: **setState(ProtectionMoneyBack)**
     S --> A: returnProtectionMoney()
+    deactivate A
     S --> C: returnProtectionMoney()
-
-else deal was cancelled
-    S --> C: returnMoneyForLastPaidTask()
-
-    alt client cancelled
-        S --> A: payCompensation()
-        deactivate A
-
-    else agent cancelled
-        S --> C: payCompensation()
-    end
 end
 
-S -> S: **setState(ReviewsAndRatings)**
-C -> S: writeReview(rating, review)
+S -> S--: **setState(ReviewsAndRatings)**
+C -> S++: writeReview(rating, review)
 deactivate C
 S -> S: emit: RatingLeft(rating, review)
 
 S -> S: **setState(Done)**
-S -> S: emit: DealCompleted
+S -> S--: emit: DealCompleted
 
 @enduml
