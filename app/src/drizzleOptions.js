@@ -8,7 +8,12 @@ const options = {
 		customProvider: new Web3("ws://localhost:7545"),
 	},
 	contracts: [SmartDeal],
+	// poll info about accounts every 5 seconds
+	polls: {
+		accounts: 5000,
+	},
 	events: {
+		// track the following contract events
 		SmartDeal: [
 			"DealStarted",
 			"DealCancelled",
