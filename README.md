@@ -49,4 +49,6 @@ Running migration: `yarn migrate`
 ## Interface
 
 ![image](https://user-images.githubusercontent.com/53301511/148656962-6f4593bd-426f-4c55-8d5c-5d78ee92c1bf.png)
+![image](https://user-images.githubusercontent.com/53301511/148657058-240a050e-42f7-4536-b46a-8670da245aa3.png)
+![image](https://user-images.githubusercontent.com/53301511/148657074-4ed2dd2d-987c-4eb9-8ece-ca7cf61dc7a2.png)
 
