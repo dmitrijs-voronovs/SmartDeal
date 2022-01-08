@@ -1,7 +1,7 @@
-import {Space, Typography} from "antd";
+import { Space, Typography } from "antd";
 import React from "react";
-import {newContextComponents} from "@drizzle/react-components";
-import {getEthValue} from "../utils/getEthValue";
+import { newContextComponents } from "@drizzle/react-components";
+import { getEthValue } from "../../utils/getEthValue";
 
 const { AccountData } = newContextComponents;
 const { Text } = Typography;
@@ -16,9 +16,7 @@ export const User = ({ drizzle, drizzleState, idx }) => {
 			render={({ address, balance }) => (
 				<Space direction='vertical'>
 					<Text>{address}</Text>
-					<Text>
-						{getEthValue(drizzle, balance)}
-					</Text>
+					<Text>{getEthValue(drizzle, balance)}</Text>
 				</Space>
 			)}
 		/>
