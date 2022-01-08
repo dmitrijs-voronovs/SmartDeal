@@ -76,7 +76,7 @@ contract SmartDeal {
         _;
     }
 
-// --------- utils
+// --------- utilities
 
     function getProtectionValue() public view returns (uint money) {
         return contractValue * protectionPercent / 100;
@@ -96,7 +96,7 @@ contract SmartDeal {
         return tasks;
     }
 
-// --------- logic
+// --------- main logic
 
     function addTask(string memory title, uint amount) public atState(State.Init) onlyCreator {
         tasks.push(Task(title, amount));

@@ -1,0 +1,86 @@
+@startuml
+
+Title "Smart Deal" lifecycle
+
+actor "Authorized\nconsultant" as AC
+actor Client as C
+participant "Smart Deal" as S
+actor Agent as A
+
+activate AC
+AC -> S++: createContract \n(agent, client, protectionPercent)
+
+S -> S: **setState(Init)**
+S -> S--: set(agent, client, protectionPercent)
+loop N tasks
+    AC -> S++: createTask(name, value)
+    S -> S--: addTask(name, value)
+end
+
+AC -> S++: startDeal()
+deactivate AC
+
+S -> S: **setState(ProtectionFromClient)**
+S -> S--: emit: DealStarted
+
+activate C
+C -> S++: sendProtectionMoney()
+
+S -> S--: **setState(ProtectionFromAgent)**
+activate A
+A -> S++: sendProtectionMoney()
+
+loop all tasks
+    S -> S--: **setState(PayForTask)**
+    C -> S++: payForTask()
+
+    loop task iterations
+        S -> S--: **setState(TaskInProgress)**
+
+        break a party cancels the deal
+            S --> C: returnMoneyForLastPaidTask()
+
+            alt client cancels the deal
+                C -> S++: cancelDeal()
+                S -> S--: emit: DealCancelled(client)
+                S --> A: payCompensation()
+            else agent cancels the deal
+                A -> S++: cancelDeal()
+                S -> S--: emit: DealCancelled(agent)
+                S --> C: payCompensation()
+            end
+        end
+
+        A -> S++: sendTaskToRevision()
+
+        S -> S--: **setState(TaskEvaluation)**
+
+        break client accepts a task
+            C -> S++: acceptTask()
+            S -> S--: emit: TaskAccepted(taskTitle)
+        end
+
+        C -> S++: declineTask(revisionMessage)
+        S -> S--: emit: TaskDeclined(revisionMessage)
+    end
+
+    break a party cancelled the deal
+    end
+end
+
+alt all tasks were completed
+    S -> S++: **setState(ProtectionMoneyBack)**
+    S --> A: returnProtectionMoney()
+    deactivate A
+    S --> C: returnProtectionMoney()
+end
+
+S -> S--: **setState(ReviewsAndRatings)**
+C -> S++: writeReview(rating, review)
+deactivate C
+S -> S: emit: RatingLeft(rating, review)
+
+S -> S: **setState(Done)**
+S -> S--: emit: DealCompleted
+
+@enduml

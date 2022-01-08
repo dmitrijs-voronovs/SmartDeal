@@ -1,13 +1,13 @@
 import { Avatar, Card, Divider, Space } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import { User } from "../User";
+import { User } from "./User";
 import React from "react";
 import { userIds } from "../../utils/UserIds";
 
 export function Actors(props) {
 	return (
 		<div>
-			<Card title='Actors' style={{wordBreak:  "break-all"}}>
+			<Card title='Actors' style={{ wordBreak: "break-all" }}>
 				<Divider orientation='left' style={{ marginTop: 0 }}>
 					Authorized consultant
 				</Divider>
