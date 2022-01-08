@@ -27,6 +27,11 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 
 During the initial contract deployment, ganache’s 1st account is used for Authorized consultant role (creator), 2nd for Agent and 3rd for Client. 
 
+### Additinal commands
+
+Running tests: `yarn test`\
+Running migration: `yarn migrate` 
+
 ## Diagrams
 
 ### Use case diagram
@@ -42,4 +47,6 @@ During the initial contract deployment, ganache’s 1st account is used for Auth
 ![SequenceDiagram](https://user-images.githubusercontent.com/53301511/148654161-b3216fa0-07ba-4c91-a0ac-1ed98ad772b9.png)
 
 ## Interface
+
+![image](https://user-images.githubusercontent.com/53301511/148656962-6f4593bd-426f-4c55-8d5c-5d78ee92c1bf.png)
 
