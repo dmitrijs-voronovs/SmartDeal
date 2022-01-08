@@ -7,7 +7,7 @@ import { userIds } from "../../utils/UserIds";
 export function Actors(props) {
 	return (
 		<div>
-			<Card title='Actors' style={{ wordBreak: "break-all" }}>
+			<Card title='Actors' style={{ wordBreak: "break-word" }}>
 				<Divider orientation='left' style={{ marginTop: 0 }}>
 					Authorized consultant
 				</Divider>

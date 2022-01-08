@@ -28,7 +28,7 @@ export function Events({ drizzle, drizzleState }) {
 				dataSource={events}
 				renderItem={(item) => (
 					<List.Item>
-						<Card title={item.event} style={{ wordBreak: "break-all" }}>
+						<Card title={item.event} style={{ wordBreak: "break-word" }}>
 							{getEventNotification(item).description}
 						</Card>
 					</List.Item>

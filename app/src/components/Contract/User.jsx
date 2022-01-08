@@ -12,7 +12,6 @@ export const User = ({ drizzle, drizzleState, idx }) => {
 			drizzle={drizzle}
 			drizzleState={drizzleState}
 			accountIndex={idx}
-			precision={3}
 			render={({ address, balance }) => (
 				<Space direction='vertical'>
 					<Text>{address}</Text>

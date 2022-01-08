@@ -9,7 +9,7 @@ const { ContractData } = newContextComponents;
 export function Info({ drizzle, drizzleState }) {
 	return (
 		<div>
-			<Card title='Contract Information' style={{wordBreak:  "break-all"}}>
+			<Card title='Contract Information' style={{ wordBreak: "break-word" }}>
 				<Descriptions column={1}>
 					<Descriptions.Item label='Balance'>
 						<ContractData

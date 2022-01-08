@@ -34,7 +34,7 @@ export function getEventNotification(event) {
 
 export const Notifications = ({ drizzle, drizzleState }) => {
 	useEffect(() => {
-		const lastTransaction = drizzleState.transactionStack
+		const lastTransaction = [...drizzleState.transactionStack]
 			.reverse()
 			.find((hash) => hash in drizzleState.transactions);
 		if (lastTransaction) {
