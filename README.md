@@ -25,12 +25,13 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 
 ### Important note
 
-During the initial contract deployment, ganache’s 1st account is used for Authorized consultant role (creator), 2nd for Agent and 3rd for Client. 
+During the initial contract deployment, ganache’s 1st account is used for Authorized consultant role (creator), 2nd for Agent and 3rd for Client.\
+Also the initial protection percent is set to 30%. To change it modify [this line](https://github.com/dmitrijs-voronovs/SmartDeal/blob/main/migrations/2_deploy_contracts.js#L10).
 
 ### Additinal commands
 
 Running tests: `yarn test`\
-Running migration: `yarn migrate` 
+Running migration: `yarn migrate`
 
 ## Diagrams
 
