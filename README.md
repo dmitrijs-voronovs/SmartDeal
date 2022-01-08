@@ -20,15 +20,26 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 
 ### Dapp launch
 
-4. Launch ganache
-5. `git pull https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn launch`
+1. Launch ganache
+2. `git pull https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn launch`
+
+### Important note
+
+During the initial contract deployment, ganache’s 1st account is used for Authorized consultant role (creator), 2nd for Agent and 3rd for Client. 
 
 ## Diagrams
 
 ### Use case diagram
 
+![smartDeals-Use case diagram drawio](https://user-images.githubusercontent.com/53301511/148654153-a0295a79-fa79-4aa3-8dae-4096677b7fd7.png)
+
 ### State diagram
+
+![smartDeals-State diagram drawio](https://user-images.githubusercontent.com/53301511/148654157-1819718d-60cd-448a-bed9-75f6d0bfe11b.png)
 
 ### Sequence diagram
 
+![SequenceDiagram](https://user-images.githubusercontent.com/53301511/148654161-b3216fa0-07ba-4c91-a0ac-1ed98ad772b9.png)
+
 ## Interface
+
