@@ -26,14 +26,15 @@ Multi-step business deals, agile projects, complex agreements have a common issu
    ```cmd
    git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && npm i && cd app && npm i && cd ..
    ```
-3. Launch project: 
+3. Launch project:
    ```cmd
-   yarn launch
+   npm launch
    ```
 
 #### For generating new contract use command
+
 ```cmd
-yarn migrate
+npm migrate
 ```
 
 ### Dapp launch (with Metamask's web3 provider)
@@ -49,13 +50,14 @@ yarn migrate
    ```
 4. Launch project:
    ```cmd
-   yarn launchM
+   npm launchM
    ```
 5. Metamask extension will appear and ask to log in, use mnemonic from ganache for that
 
-#### For generating new contract use command 
+#### For generating new contract use command
+
 ```cmd
-yarn migrateM
+npm migrateM
 ```
 
 ### Important note
