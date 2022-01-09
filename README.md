@@ -16,15 +16,15 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 
 1. Ganache
 2. truffle
-3. yarn
+3. npm
 4. Metamask extension (optional)
 
 ### Dapp launch (with ganache's web3 provider)
 
 1. Launch ganache
-2. `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && yarn launch`
+2. `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && npm && npm launch`
 
-For generating new contract use command `yarn migrate`
+For generating new contract use command `npm migrate`
 
 ### Dapp launch (with Metamask's web3 provider)
 
@@ -33,10 +33,10 @@ For generating new contract use command `yarn migrate`
    1. **New RPC URL**: http://localhost:7545
    2. **Chain ID**: 1337
    3. **Network Name**: SmartDeal
-3. `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && yarn launchM`
+3. `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && npm && npm launchM`
 4. Metamask extension will appear and ask to log in, use mnemonic from ganache for that
 
-For generating new contract use command `yarn migrateM`
+For generating new contract use command `npm migrateM`
 
 ### Important note
 
@@ -45,8 +45,8 @@ Also the initial protection percent is set to 30%. To change it modify [this lin
 
 ### Additinal commands
 
-Running tests: `yarn test`\
-Running migration: `yarn migrate`
+Running tests: `npm test`\
+Running migration: `npm migrate`
 
 ## Diagrams
 
