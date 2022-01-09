@@ -22,10 +22,19 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 ### Dapp launch (with ganache's web3 provider)
 
 1. Launch ganache
-2. Clone project and install dependencies (first time only): `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && cd app && yarn && cd ..`
-3. Launch project: `yarn launch`
+2. Clone project and install dependencies (first time only):
+   ```cmd
+   git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && cd app && yarn && cd ..
+   ```
+3. Launch project: 
+   ```cmd
+   yarn launch
+   ```
 
-For generating new contract use command `yarn migrate`
+#### For generating new contract use command
+```cmd
+yarn migrate
+```
 
 ### Dapp launch (with Metamask's web3 provider)
 
@@ -34,15 +43,24 @@ For generating new contract use command `yarn migrate`
    1. **New RPC URL**: http://localhost:7545
    2. **Chain ID**: 1337
    3. **Network Name**: SmartDeal
-3. Clone project and install dependencies (first time only): `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && cd app && yarn && cd ..`
-4. Launch project: `yarn launchM`
+3. Clone project and install dependencies (first time only):
+   ```cmd
+   git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && cd app && yarn && cd ..
+   ```
+4. Launch project:
+   ```cmd
+   yarn launchM
+   ```
 5. Metamask extension will appear and ask to log in, use mnemonic from ganache for that
 
-For generating new contract use command `yarn migrateM`
+#### For generating new contract use command 
+```cmd
+yarn migrateM
+```
 
 ### Important note
 
-During the initial contract deployment, ganache’s 1st account is used for Authorized consultant role (creator), 2nd for Agent and 3rd for Client.\
+During the initial contract deployment, ganache’s 1st account is used for Authorized consultant role (creator), 2nd - for the Agent and 3rd - for the Client.\
 Also the initial protection percent is set to 30%. To change it modify [this line](https://github.com/dmitrijs-voronovs/SmartDeal/blob/main/migrations/2_deploy_contracts.js#L10).
 
 ### Additinal commands
