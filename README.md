@@ -28,13 +28,13 @@ Multi-step business deals, agile projects, complex agreements have a common issu
    ```
 3. Launch project:
    ```cmd
-   npm launch
+   npm run launch
    ```
 
 #### For generating new contract use command
 
 ```cmd
-npm migrate
+npm run migrate
 ```
 
 ### Dapp launch (with Metamask's web3 provider)
@@ -50,14 +50,14 @@ npm migrate
    ```
 4. Launch project:
    ```cmd
-   npm launchM
+   npm run launchM
    ```
 5. Metamask extension will appear and ask to log in, use mnemonic from ganache for that
 
 #### For generating new contract use command
 
 ```cmd
-npm migrateM
+npm run migrateM
 ```
 
 ### Important note
@@ -69,7 +69,7 @@ Also the initial protection percent is set to 30%. To change it modify [this lin
 
 Running tests:
 ```cmd
-npm test
+npm run test
 ```
 
 ## Diagrams
