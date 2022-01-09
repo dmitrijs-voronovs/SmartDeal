@@ -9,10 +9,10 @@
 	"scripts": {
 		"compile": "truffle compile",
 		"migrate": "truffle migrate --reset",
-		"migrateM": "npm compile && npm migrate",
+		"migrateM": "npm run compile && npm run migrate",
 		"test": "truffle test",
-		"launch": "npm migrate && cd app && npm start",
-		"launchM": "npm migrateM && cd app && npm startM"
+		"launch": "npm run migrate && cd app && npm run start",
+		"launchM": "npm run migrateM && cd app && npm run startM"
 	},
 	"repository": {
 		"type": "git",
