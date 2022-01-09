@@ -16,7 +16,7 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 
 1. Ganache
 2. truffle
-3. yarn
+3. npm
 4. Metamask extension (optional)
 
 ### Dapp launch (with ganache's web3 provider)
@@ -65,8 +65,8 @@ Also the initial protection percent is set to 30%. To change it modify [this lin
 
 ### Additinal commands
 
-Running tests: `yarn test`\
-Running migration: `yarn migrate`
+Running tests: `npm test`\
+Running migration: `npm migrate`
 
 ## Diagrams
 
