@@ -67,8 +67,10 @@ Also the initial protection percent is set to 30%. To change it modify [this lin
 
 ### Additinal commands
 
-Running tests: `npm test`\
-Running migration: `npm migrate`
+Running tests:
+```cmd
+npm test
+```
 
 ## Diagrams
 
