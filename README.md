@@ -24,7 +24,7 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 1. Launch ganache
 2. Clone project and install dependencies (first time only):
    ```cmd
-   git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && cd app && yarn && cd ..
+   git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && npm i && cd app && npm i && cd ..
    ```
 3. Launch project: 
    ```cmd
@@ -45,7 +45,7 @@ yarn migrate
    3. **Network Name**: SmartDeal
 3. Clone project and install dependencies (first time only):
    ```cmd
-   git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && cd app && yarn && cd ..
+   git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && npm i && cd app && npm i && cd ..
    ```
 4. Launch project:
    ```cmd
