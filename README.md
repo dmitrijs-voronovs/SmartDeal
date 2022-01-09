@@ -22,7 +22,8 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 ### Dapp launch (with ganache's web3 provider)
 
 1. Launch ganache
-2. `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && yarn launch`
+2. Clone project and install dependencies (first time only): `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && cd app && yarn && cd ..`
+3. Launch project: `yarn launch`
 
 For generating new contract use command `yarn migrate`
 
@@ -33,8 +34,9 @@ For generating new contract use command `yarn migrate`
    1. **New RPC URL**: http://localhost:7545
    2. **Chain ID**: 1337
    3. **Network Name**: SmartDeal
-3. `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && yarn launchM`
-4. Metamask extension will appear and ask to log in, use mnemonic from ganache for that
+3. Clone project and install dependencies (first time only): `git clone https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn && cd app && yarn && cd ..`
+4. Launch project: `yarn launchM`
+5. Metamask extension will appear and ask to log in, use mnemonic from ganache for that
 
 For generating new contract use command `yarn migrateM`
 
