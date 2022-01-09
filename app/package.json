@@ -13,7 +13,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"startWithMetamask": "set REACT_APP_WITH_METAMASK=true && yarn start",
+		"startM": "export REACT_APP_WITH_METAMASK=true || set REACT_APP_WITH_METAMASK=true  && yarn start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject"
