@@ -17,15 +17,36 @@ Multi-step business deals, agile projects, complex agreements have a common issu
 1. Ganache
 2. truffle
 3. yarn
+4. Metamask extension (optional)
 
-### Dapp launch
+### Dapp launch (with ganache's web3 provider)
 
 1. Launch ganache
 2. `git pull https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn launch`
 
+For generating new contract use command `yarn migrate`
+
+### Dapp launch (with Metamask's web3 provider)
+
+1. Launch ganache
+2. Connect Metamask to ganache
+   1. **New RPC URL**: http://localhost:7545
+   2. **Chain ID**: 1337
+   3. **Network Name**: SmartDeal
+3. `git pull https://github.com/dmitrijs-voronovs/SmartDeal.git && cd SmartDeal && yarn launchM`
+4. Metamask extension will appear and ask to log in, use mnemonic from ganache for that
+
+For generating new contract use command `yarn migrateM`
+
 ### Important note
 
-During the initial contract deployment, ganache’s 1st account is used for Authorized consultant role (creator), 2nd for Agent and 3rd for Client. 
+During the initial contract deployment, ganache’s 1st account is used for Authorized consultant role (creator), 2nd for Agent and 3rd for Client.\
+Also the initial protection percent is set to 30%. To change it modify [this line](https://github.com/dmitrijs-voronovs/SmartDeal/blob/main/migrations/2_deploy_contracts.js#L10).
+
+### Additinal commands
+
+Running tests: `yarn test`\
+Running migration: `yarn migrate`
 
 ## Diagrams
 
@@ -43,3 +64,6 @@ During the initial contract deployment, ganache’s 1st account is used for Auth
 
 ## Interface
 
+![image](https://user-images.githubusercontent.com/53301511/148656962-6f4593bd-426f-4c55-8d5c-5d78ee92c1bf.png)
+![image](https://user-images.githubusercontent.com/53301511/148657058-240a050e-42f7-4536-b46a-8670da245aa3.png)
+![image](https://user-images.githubusercontent.com/53301511/148657074-4ed2dd2d-987c-4eb9-8ece-ca7cf61dc7a2.png)

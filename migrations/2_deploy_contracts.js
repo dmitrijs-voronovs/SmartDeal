@@ -5,7 +5,7 @@ module.exports = function (deployer, network, accounts) {
 	 *  accounts[0] - creator (authorized consultant)
 	 *  accounts[1] - agent
 	 *  accounts[2] - client
-	 *  200 - protection money
+	 *  30 - protection percent
 	 */
 	deployer.deploy(SmartDeal, accounts[1], accounts[2], 30, {
 		from: accounts[0],

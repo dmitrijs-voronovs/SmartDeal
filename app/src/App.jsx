@@ -8,8 +8,11 @@ import React from "react";
 import drizzleOptions from "./drizzleOptions";
 import { ContractPage } from "./components/ContractPage";
 import { LoadingScreen } from "./components/LoadingScreen";
+import { isMetamask } from "./utils/isMetamask";
 
+window.ethereum.enable();
 const drizzle = new Drizzle(drizzleOptions);
+console.log(isMetamask);
 
 const App = () => {
 	return (

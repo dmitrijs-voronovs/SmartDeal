@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useContractData } from "../../utils/useContractData";
-import { Col, Divider, Row, Select } from "antd";
-import { userIds } from "../../utils/UserIds";
+import { Divider } from "antd";
 import { customFormRender } from "../../utils/CustomFormRender";
 import { newContextComponents } from "@drizzle/react-components";
 import { contractStateEnum } from "../../utils/ContractStates";
 import { StateDivider } from "./StateDivider";
+import { isMetamask } from "../../utils/isMetamask";
+import { UserSelector } from "./UserSelector";
 
 const { ContractForm } = newContextComponents;
 
@@ -36,36 +37,13 @@ export function Actions({ drizzle, drizzleState }) {
 	return (
 		<div style={{ background: "white", padding: "1rem" }}>
 			<h2>Actions</h2>
-			<div
-				style={{
-					position: "sticky",
-					top: 0,
-					background: "rgba(255,255,255,.9)",
-					zIndex: 99,
-				}}
-			>
-				<Row style={{ padding: "1rem 0" }}>
-					<Col span={6} style={{ textAlign: "right", paddingRight: ".5rem" }}>
-						Select a user:
-					</Col>
-					<Col span={14}>
-						<Select
-							onChange={(val) => {
-								setSelectedUserId(val);
-							}}
-							options={[
-								{ label: "Creator", value: userIds.creator },
-								{
-									label: "Agent",
-									value: userIds.agent,
-								},
-								{ label: "Client", value: userIds.client },
-							]}
-							defaultValue={userIds.creator}
-						/>
-					</Col>
-				</Row>
-			</div>
+			{!isMetamask && (
+				<UserSelector
+					onChange={(val) => {
+						setSelectedUserId(val);
+					}}
+				/>
+			)}
 			<StateDivider
 				currentStateIdx={stateIdx}
 				stateNames={[contractStateEnum.Init]}
@@ -81,7 +59,10 @@ export function Actions({ drizzle, drizzleState }) {
 					gasPrice,
 					gas,
 				}}
-				render={customFormRender("Add task", {drizzle, labels: ["name", amountField]})}
+				render={customFormRender("Add task", {
+					drizzle,
+					labels: ["name", amountField],
+				})}
 			/>
 			<Divider dashed />
 			<ContractForm
@@ -221,7 +202,7 @@ export function Actions({ drizzle, drizzleState }) {
 					gasPrice,
 					gas,
 				}}
-				render={customFormRender("Write review", {stateIdx})}
+				render={customFormRender("Write review", { stateIdx })}
 			/>
 			<StateDivider
 				currentStateIdx={stateIdx}

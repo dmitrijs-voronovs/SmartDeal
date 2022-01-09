@@ -7,9 +7,12 @@
 		"test": "test"
 	},
 	"scripts": {
+		"compile": "truffle compile",
 		"migrate": "truffle migrate --reset",
+		"migrateM": "yarn compile && yarn migrate",
 		"test": "truffle test",
-		"launch": "yarn migrate && cd app && yarn start"
+		"launch": "yarn migrate && cd app && yarn start",
+		"launchM": "yarn migrateM && cd app && yarn startM"
 	},
 	"repository": {
 		"type": "git",
